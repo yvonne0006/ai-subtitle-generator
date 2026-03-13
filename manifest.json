@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "AI 自动生成字幕",
+  "version": "1.0",
+  "permissions": [
+    "tabCapture",
+    "activeTab",
+    "scripting",
+    "offscreen"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_title": "点击开始生成字幕"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["worker.js", "transformers.js", "*.wasm"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
